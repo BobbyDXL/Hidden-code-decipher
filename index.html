@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .slide-in {
+                animation: slideIn 0.3s ease-out;
+            }
+            @keyframes slideIn {
+                from { transform: translateX(100%); }
+                to { transform: translateX(0); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+    <main class="container mx-auto px-4 py-12 max-w-2xl">
+        <div class="space-y-8">
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                    Cipher
+                </h1>
+                <p class="text-gray-400 text-sm">Transform your text into something mysterious</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="rounded-xl border border-gray-800 bg-black/50 backdrop-blur-sm p-6 space-y-4 shadow-xl">
+                    <textarea id="normalText" 
+                        class="w-full h-32 bg-gray-900/50 rounded-lg p-4 text-gray-200 border border-gray-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"
+                        placeholder="Enter your message..."></textarea>
+                    
+                    <div class="flex justify-center gap-3">
+                        <button onclick="convert('encrypt')"
+                            class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors text-white font-medium shadow-lg shadow-purple-500/20">
+                            Encrypt ↓
+                        </button>
+                        <button onclick="convert('decrypt')"
+                            class="px-6 py-2.5 bg-pink-600 hover:bg-pink-700 rounded-lg transition-colors text-white font-medium shadow-lg shadow-pink-500/20">
+                            Decrypt ↑
+                        </button>
+                    </div>
+
+                    <textarea id="hiddenText" 
+                        class="w-full h-32 bg-gray-900/50 rounded-lg p-4 text-gray-200 border border-gray-800 focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all resize-none"
+                        placeholder="Transformed text appears here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Cipher Key Panel -->
+        <div id="cipherPanel" class="fixed top-0 right-0 h-full w-80 bg-black/90 backdrop-blur-md border-l border-gray-800 p-6 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl">
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-purple-400">Cipher Key</h2>
+                    <button onclick="toggleCipherPanel()" 
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">×</button>
+                </div>
+                <div id="cipherKey" class="grid grid-cols-3 gap-2 text-sm"></div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
